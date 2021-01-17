@@ -2,7 +2,7 @@
 
 import argparse
 import logging
-import os.path
+from os.path import dirname, getsize, join
 import sys
 from urllib.parse import urljoin
 
@@ -12,6 +12,7 @@ import podgen
 
 
 def generate(args):
+    base_path = dirname(args.feedfile.name)
     with args.feedfile as f:
         feeddata = hjson.load(f)
 
@@ -35,10 +36,10 @@ def generate(args):
     for episodedata in feeddata["episodes"]:
         episode_url = urljoin(base_url, episodedata["path"])
         episode_title = episodedata["title"]
-        episode_file = episodedata["path"]
+        episode_file = join(base_path, episodedata["path"])
         # We should make sure the episode file exists, and we want to find the episode size anyway, so do that now.
         try:
-            episode_size = os.path.getsize(episode_file)
+            episode_size = getsize(episode_file)
         except FileNotFoundError:
             logging.error(
                 f"The media file {episode_file} for episode {episode_title!r} doesn't exist. "
