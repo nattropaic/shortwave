@@ -17,12 +17,12 @@ def generate(args):
 
     base_url = feeddata["url"]
 
+    feed.id(base_url)
     feed.title(feeddata["title"])
     feed.language(feeddata.get("language", "en"))
     feed.author(name=feeddata["author"])
     feed.link(href=base_url, rel="alternate")
     feed.logo(urljoin(base_url, feeddata["logo"]))
-    # subtitle
 
     # These feeds are private.
     feed.podcast.itunes_block(True)
@@ -37,20 +37,17 @@ def generate(args):
         episode.link(href=episodedata["link"])
         episode.enclosure(episode_url)
 
-    feed.rss_str(pretty=True)
-    feed.atom_file("atom.xml")
+    feed.atom_file("atom.xml", pretty=True)
 
 
 def main(argv):
     parser = argparse.ArgumentParser(description="Generate a podcast feed for some audio files.")
     parser.add_argument(
-        "feedfile",
-        required=False,
+        "--feedfile",
         type=argparse.FileType("r"),
         default="./feed.hjson",
         help="Config file to generate a feed from (default: feed.hjson)",
     )
-
     args = parser.parse_args(argv)
 
     generate(args)
