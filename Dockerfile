@@ -10,8 +10,10 @@ RUN apt-get update -q && \
 
 ENV APP_ROOT /app
 WORKDIR $APP_ROOT
-COPY . .
 
+COPY requirements.txt .
 RUN pip3 install -r requirements.txt
+
+COPY . .
 
 CMD ["python3", "/app/shortwave.py"]
