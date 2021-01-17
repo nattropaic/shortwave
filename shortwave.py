@@ -4,7 +4,7 @@ import argparse
 import logging
 from os.path import dirname, getsize, join
 import sys
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 
 import dateparser
 import hjson
@@ -34,7 +34,7 @@ def generate(args):
     feed.withhold_from_itunes = True
 
     for episodedata in feeddata["episodes"]:
-        episode_url = urljoin(base_url, episodedata["path"])
+        episode_url = urljoin(base_url, quote(episodedata["path"]))
         episode_title = episodedata["title"]
         episode_file = join(base_path, episodedata["path"])
         # We should make sure the episode file exists, and we want to find the episode size anyway, so do that now.
