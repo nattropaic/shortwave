@@ -12,8 +12,8 @@ import podgen
 
 
 def generate(args):
-    base_path = dirname(args.feedfile.name)
-    with args.feedfile as f:
+    base_path = dirname(args.infile.name)
+    with args.infile as f:
         feeddata = hjson.load(f)
 
     base_url = feeddata["url"]
@@ -62,16 +62,23 @@ def generate(args):
         episode.media = podgen.Media(episode_url, size=episode_size)
         episode.media.populate_duration_from(episode_file)
 
-    feed.rss_file("feed.xml")
+    with args.outfile as f:
+        f.write(feed.rss_str())
 
 
 def main(argv):
     parser = argparse.ArgumentParser(description="Generate a podcast feed for some audio files.")
     parser.add_argument(
-        "--feedfile",
+        "--infile",
         type=argparse.FileType("r"),
         default="./feed.hjson",
         help="Config file to generate a feed from (default: feed.hjson)",
+    )
+    parser.add_argument(
+        "--outfile",
+        type=argparse.FileType("w"),
+        default="./feed.xml",
+        help="RSS file to generate (default: feed.xml)",
     )
     args = parser.parse_args(argv)
 
