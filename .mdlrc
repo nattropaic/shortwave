@@ -1,0 +1,9 @@
+# Markdownlint configuration
+# <https://github.com/markdownlint/markdownlint/blob/master/docs/configuration.md>
+# <https://github.com/markdownlint/markdownlint/blob/v0.11.0/docs/RULES.md>
+
+# Disable MD012 (Multiple consecutive blank lines) to allow multiple blank lines
+# before headers.
+# Disable MD013 (Line length). Use word wrapping when editing to keep the
+# Markdown source readable.
+rules "~MD012", "~MD013"

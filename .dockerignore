@@ -1,7 +1,11 @@
-Dockerfile*
-docker-compose.yaml
 .dockerignore
+.git/**
+.github/**
 .gitignore
+.pre-commit-config.yaml
+docker-compose.yaml
+Dockerfile*
+README.md
 
-episodes/
 *.hjson
+episodes/

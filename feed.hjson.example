@@ -1,0 +1,33 @@
+{
+    title: My very private podcast
+    author: your name here
+    url: https://example.com/example-cast/
+    image: podcast-artwork.jpg
+
+    episodes: [
+
+        {
+            title: Episode Title
+            authors: ["Audio File Author"]
+            path: episodes/episode1.mp3
+            link: https://original-source.example.com/web-site/
+            published: 2018-07-01 08:36 am EST
+            description: '''
+                You can write a long description here for the episode, such as
+                maybe if you wanted to copy text from the web site where you got
+                the mp3.
+
+                You can write a short description without the triple quotes too.
+                See https://hjson.github.io for all the supported syntax in this
+                Hjson file.
+                '''
+        }
+        {
+            title: Another Episode Title
+            authors: ["First Author", "Second Author"]
+            path: episodes/episode path with spaces - that works somehow.m4a
+            published: 2017-12-05
+        }
+
+    ]
+}

@@ -2,8 +2,8 @@
 
 import argparse
 import logging
-from os.path import dirname, getsize, join
 import sys
+from os.path import dirname, getsize, join
 from urllib.parse import quote, urljoin
 
 import dateparser
@@ -37,20 +37,23 @@ def generate(args):
         episode_url = urljoin(base_url, quote(episodedata["path"]))
         episode_title = episodedata["title"]
         episode_file = join(base_path, episodedata["path"])
-        # We should make sure the episode file exists, and we want to find the episode size anyway, so do that now.
+        # We should make sure the episode file exists, and we want to find the
+        # episode size anyway, so do that now.
         try:
             episode_size = getsize(episode_file)
         except FileNotFoundError:
             logging.error(
-                f"The media file {episode_file} for episode {episode_title!r} doesn't exist. "
-                "Please check your feed file."
+                f"The media file {episode_file} for episode {episode_title!r} "
+                "doesn't exist. Please check your feed file."
             )
             return 1
 
         episode = feed.add_episode()
         episode.title = episode_title
         episode.link = episodedata.get("link")
-        episode.authors = [podgen.Person(name) for name in episodedata.get("authors", {})]
+        episode.authors = [
+            podgen.Person(name) for name in episodedata.get("authors", {})
+        ]
         episode.publication_date = dateparser.parse(
             episodedata["published"], settings={"RETURN_AS_TIMEZONE_AWARE": True}
         )
@@ -67,7 +70,9 @@ def generate(args):
 
 
 def main(argv):
-    parser = argparse.ArgumentParser(description="Generate a podcast feed for some audio files.")
+    parser = argparse.ArgumentParser(
+        description="Generate a podcast feed for some audio files."
+    )
     parser.add_argument(
         "--infile",
         type=argparse.FileType("r"),

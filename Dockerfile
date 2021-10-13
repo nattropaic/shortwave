@@ -1,18 +1,18 @@
-FROM debian:buster
+FROM python:3.9-slim-bullseye
 
-RUN apt-get update -q && \
-    apt-get install -y --no-install-recommends \
-        python3 \
-        python3-pip \
-        python3-setuptools \
-        python3-wheel \
-    ;
+# Install security updates.
+RUN --mount=type=cache,target=/var/cache/apt,id=apt \
+    apt-get update -q && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && \
+    rm -rf /var/lib/apt/lists/*
 
-ENV APP_ROOT /app
-WORKDIR $APP_ROOT
+WORKDIR /app
 
 COPY requirements.txt .
-RUN pip3 install -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache,id=pip \
+    python3 -m venv --system-site-packages --without-pip /opt/venv && \
+    /opt/venv/bin/python3 -m pip install -r requirements.txt
+ENV PATH=/opt/venv/bin:$PATH
 
 COPY . .
 

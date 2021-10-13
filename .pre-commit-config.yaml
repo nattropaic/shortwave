@@ -1,0 +1,46 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.0.1
+  hooks:
+  - id: trailing-whitespace
+  - id: end-of-file-fixer
+
+  - id: check-added-large-files
+  - id: check-executables-have-shebangs
+  - id: check-merge-conflict
+  - id: check-shebang-scripts-are-executable
+  - id: check-toml
+  - id: check-xml
+  - id: check-yaml
+  - id: fix-byte-order-marker
+  - id: no-commit-to-branch  # main
+  - id: pretty-format-json
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.1.10
+  hooks:
+  - id: forbid-crlf
+  - id: forbid-tabs
+- repo: https://github.com/shellcheck-py/shellcheck-py
+  rev: v0.7.2.1
+  hooks:
+  - id: shellcheck
+- repo: https://github.com/markdownlint/markdownlint
+  # TODO: watch out for the next release after v0.11.0 - it may drop support for
+  # Ruby 2.6, so it won't just run on macOS.
+  rev: v0.11.0
+  hooks:
+  - id: markdownlint
+- repo: https://github.com/psf/black
+  rev: 21.9b0
+  hooks:
+  - id: black
+- repo: https://github.com/PyCQA/isort
+  rev: 5.9.3
+  hooks:
+  - id: isort
+- repo: https://github.com/PyCQA/flake8
+  rev: 4.0.1
+  hooks:
+  - id: flake8

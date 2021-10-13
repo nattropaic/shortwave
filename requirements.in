@@ -1,0 +1,10 @@
+#
+# This file is used by pip-compile with python 3.9 to generate requirements.txt.
+# To update, run:
+#
+#    pip-compile --generate-hashes --reuse-hashes requirements.in > requirements.txt
+#
+
+dateparser
+hjson
+podgen
